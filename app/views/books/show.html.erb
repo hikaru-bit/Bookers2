@@ -3,5 +3,6 @@
   <p>opinion : <%= @book.body %></p>
   <% if @book.user == current_user %>
     <%= link_to "detroy", book_path(@book), method: :delete %>
+    <%= link_to "Edit" , edit_book_path(@book) %>
   <% end %>
 </div>
