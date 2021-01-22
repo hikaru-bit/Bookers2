@@ -4,6 +4,7 @@
 <div class="profile-container">
   <h3 class="name"><%= @user.name %></h3>
 </div>
+<%= link_to "Edit", edit_user_path(current_user.id)  %>
 
 <h1>New book</h1>
 <%= form_with model:@book, local:true do |f| %>
