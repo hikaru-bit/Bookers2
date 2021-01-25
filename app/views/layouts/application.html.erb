@@ -10,7 +10,12 @@
   </head>
 
   <body>
+    <header>
+    <%= flash[:notice] %>
      <% if user_signed_in? %>
+     <li>
+       <%= link_to 'Bookers', root_path %>
+     </li>
      <li>
         <%= link_to 'Home', user_path(current_user.id) %>
       </li>
@@ -24,19 +29,23 @@
         <%= link_to "logout", destroy_user_session_path, method: :delete %>
       </li>
       <% else %>
+      <li>
+       <%= link_to 'Bookers', root_path %>
+     </li>
        <li>
         <%= link_to 'Home', root_path %>
       </li>
       <li>
-        <%= link_to 'About', '/homes/about' %>
+        <%= link_to 'About', '/home/about' %>
       </li>
       <li>
-        <%= link_to "Sign Up", new_user_registration_path %>
+        <%= link_to "sign Up", new_user_registration_path %>
       </li>
       <li>
         <%= link_to "Login", new_user_session_path %>
       </li>
       <% end %>
+      </header>
     <%= yield %>
   </body>
 </html>
