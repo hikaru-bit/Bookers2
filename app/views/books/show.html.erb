@@ -1,35 +1,71 @@
-<h1>User info</h1>
-<div class="profile-container">
-  <%= attachment_image_tag @book2.user, :profile_image, :fill, 60, 60, format:'jpg', fallback: "no_image.jpg" %>
-  <h3>name</h3>
-  <h3 class="name"><%= @book2.user.name %></h3>
-  <h3>introduction</h3>
-  <h3 class="introduction"><%= @book2.user.introduction %></h3>
-</div>
-<%= link_to "edit", edit_user_path(@book2.user)  %>
+<div class="container px-5 px-sm-0">
+ <div class="row">
+  <div class="col-md-3">
+    <h2>User info</h2>
+    <div class="profile-container">
+      <%= attachment_image_tag @book2.user, :profile_image, :fill, 60, 60, format:'jpg', fallback: "no_image.jpg" %>
+      <table class="table table-hover table-inverse">
+        <thad>
+          <tr>
+          <th>name</th>
+          <td><%= @book2.user.name %></td>
+          </tr>
+        </thad>
+        <tr>
+          <th>introduction</th>
+          <td><%= @book2.user.introduction %></td>
+        </td>
+      </table>
+    </div>
+  <%= link_to edit_user_path(@book2.user) do %>
+    <i class="btn btn-outline-secondary btn-block fas fa-user-cog"></i>
+  <% end %>
 
-<h1>New book</h1>
-<%= form_with model:@book, local:true do |f| %>
-<%= render "layouts/error_messages", book: @book %>
-     <h4>title</h4>
-     <%= f.text_field :title %>
-     <h4>Opinion</h4>
-     <%= f.text_field :body %><br>
-     <%= f.submit 'Create Book' %>
-<% end %>
 
-<h1>Book detail</h1>
-<div>
-  <%= link_to user_path(@book2.user.id) do %>
-  <%= attachment_image_tag @book2.user, :profile_image, :fill, 60, 60, format:'jpg', fallback: "no_image.jpg" %>
-  <% end %>
-  <%= link_to user_path(@book2.user.id) do %>
-     <p><%= @book2.user.name %></p>
-  <% end %>
-  <p>title : <%= @book2.title %></p>
-  <p>opinion : <%= @book2.body %></p>
-  <% if @book2.user == current_user %>
-    <%= link_to "Destroy", book_path(@book2), method: :delete, data: {confirm: "本当に削除しますか？"}  %>
-    <%= link_to "Edit" , edit_book_path(@book2) %>
-  <% end %>
+    <h2>New book</h2>
+    <%= form_with model:@book, local:true do |f| %>
+      <h4>Title</h4>
+          <%= f.text_field :title, class: "col-xs-12 book_title" %>
+       <h4>opinion</h4>
+          <%= f.text_area :body, class: "col-xs-12 book_body" %>
+     <br>
+     <div class="form">
+       <input type="submit" name="commit" value="Create Book" class="btn btn-success" data-disable-with="Create Book">
+     </div>
+    <% end %>
+  </div>
+
+  <div class="col-md-8 offset-md-1">
+  <h2>Book detail</h2>
+   <table class="table table-hover table-inverse">
+        <tbody>
+        <tr>
+          <td>
+          <%= link_to user_path(@book2.user.id) do %>
+          <%= attachment_image_tag @book2.user, :profile_image, :fill, 60, 60, format:'jpg', fallback: "no_image.jpg" %>
+          <% end %>
+          <%= link_to user_path(@book2.user.id) do %>
+             <p><%= @book2.user.name %></p>
+          <% end %>
+          </td>
+          <td>
+           <%= link_to book_path(@book2.id) do %>
+            <p><%= @book2.title %></p>
+           <% end %>
+           </td>
+           <td>
+          <p><%= @book2.body %></p>
+           </td>
+         <td>
+          <% if @book2.user == current_user %>
+            <%= link_to "Edit" , edit_book_path(@book2), class: "btn-sm btn-success" %>
+            <%= link_to "Destroy", book_path(@book2.id), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn-sm btn-danger" %>
+          <% end %>
+         </td>
+        </tr>
+     </tbody>
+    </table>
+   </div>
+
+ </div>
 </div>
